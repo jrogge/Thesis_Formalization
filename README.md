@@ -1,13 +1,6 @@
 # Thesis_Formalization
 
-## GitHub configuration
+[![Lean Action CI](https://github.com/jrogge/Thesis_Formalization/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/jrogge/Thesis_Formalization/actions/workflows/lean_action_ci.yml)
 
-To set up your new GitHub repository, follow these steps:
+My personal formalization project running in tandem with the UW Math AI Lab project (repo forthcoming).
 
-* Under your repository name, click **Settings**.
-* In the **Actions** section of the sidebar, click "General".
-* Check the box **Allow GitHub Actions to create and approve pull requests**.
-* Click the **Pages** section of the settings sidebar.
-* In the **Source** dropdown menu, select "GitHub Actions".
-
-After following the steps above, you can remove this section from the README file.
