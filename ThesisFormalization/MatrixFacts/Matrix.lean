@@ -92,7 +92,23 @@ lemma diagSimilar_symm {A B : Matrix n n R} (h : DiagSimilar A B) : DiagSimilar 
 
 lemma diagSimilar_trans {A B C : Matrix n n R}
     (hAB : DiagSimilar A B) (hBC : DiagSimilar B C) : DiagSimilar A C := by
-  sorry
+  obtain ⟨diagAB, hsimAB⟩ := hAB
+  obtain ⟨diagBC, hsimBC⟩ := hBC
+  -- the D making A,C similar is diagAB diagBC
+  exists fun i => (diagAB i ) * (diagBC i)
+  unfold diagOfUnits diagOfUnits_inv
+  simp only [Units.val_mul, ← diagonal_mul_diagonal, mul_inv_rev]
+  change A = (diagOfUnits diagAB * diagOfUnits diagBC) *
+    C * (diagOfUnits_inv diagBC * diagOfUnits_inv diagAB)
+  have hsimCB : C = diagOfUnits_inv diagBC * B * diagOfUnits diagBC := by
+    simp [hsimBC, mul_assoc, diagOfUnits_inv_mul]
+    simp [←mul_assoc]
+  calc
+    A = diagOfUnits diagAB * B * diagOfUnits_inv diagAB := hsimAB
+    _ = diagOfUnits diagAB * (diagOfUnits diagBC * C * diagOfUnits_inv diagBC)
+      * diagOfUnits_inv diagAB := by
+      rw [←hsimBC]
+  simp [mul_assoc]
 
 /-- Packaged as a genuine `Equivalence` term. -/
 lemma diagSimilar_equivalence : Equivalence (DiagSimilar (n := n) (R := R)) where
@@ -106,10 +122,15 @@ This is the key lemma needed to show `DiagEquiv` is transitive: diagonal similar
 is preserved under transposing both sides (since a diagonal matrix equals its own
 transpose, `Dᵀ = D`).
 -/
+lemma mul_trans_swap {A B : Matrix n n R} (A * B)ᵀ = Bᵀ * Aᵀ := sorry
 
 lemma diagSimilar_transpose {A B : Matrix n n R} (h : DiagSimilar A B) :
     DiagSimilar Aᵀ Bᵀ := by
-  sorry
+  obtain ⟨hDiag, hsimAB⟩ := h
+  exists fun i => (hDiag i)⁻¹
+  calc
+    Aᵀ = (diagOfUnits hDiag * B * diagOfUnits_inv hDiag)ᵀ := by rw [hsimAB]
+    _ = diagOfUnits_inv hDiag * Bᵀ * diagOfUnits hDiag := by
 
 /-! ## `DiagEquiv` is an equivalence relation -/
 

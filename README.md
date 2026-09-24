@@ -1,4 +1,4 @@
-# Thesis_Formalization
+# Thesis Formalization
 
 [![Lean Action CI](https://github.com/jrogge/Thesis_Formalization/actions/workflows/lean_action_ci.yml/badge.svg)](https://github.com/jrogge/Thesis_Formalization/actions/workflows/lean_action_ci.yml)
 
